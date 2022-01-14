@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="618.0" prefWidth="1168.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxstoktakipprogrami.yoneticiStokController">
+   <center>
+      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <tabs>
+          <Tab onSelectionChanged="#refreshSatis" text="Stok Kontrol">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="618.0" prefWidth="1168.0" style="-fx-background-color: #DFCFB7;">
+                     <children>
+                        <TableView fx:id="urunlerTable" layoutX="368.0" layoutY="-1.0" onMouseClicked="#tableSelected" prefHeight="618.0" prefWidth="801.0">
+                          <columns>
+                            <TableColumn fx:id="urunNumarasiKolonu" prefWidth="106.0" text="Ürün Numarası" />
+                            <TableColumn fx:id="isimKolonu" prefWidth="200.0" text="Ürün Adı" />
+                              <TableColumn fx:id="adetKolonu" prefWidth="120.0" text="Adet" />
+                              <TableColumn fx:id="alisFiyatiKolonu" prefWidth="120.0" text="Alış-Fiyatı" />
+                              <TableColumn fx:id="satisFiyatikolonu" prefWidth="120.0" text="Satış-Fiyatı" />
+                              <TableColumn fx:id="karKolonu" prefWidth="120.0" text="Kar(%)" />
+                          </columns>
+                        </TableView>
+                        <Button fx:id="ekleButton" layoutX="53.0" layoutY="425.0" mnemonicParsing="false" onAction="#add" onMousePressed="#mouseBasıldı" onMouseReleased="#mouseKaldırıldı" prefHeight="31.0" prefWidth="45.0" style="-fx-background-color: #2cc220; -fx-font-size: 17;" text="➕" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="refreshButton" layoutX="118.0" layoutY="425.0" mnemonicParsing="false" onAction="#refreshAll" onMousePressed="#mouseBasıldı" onMouseReleased="#mouseKaldırıldı" prefHeight="31.0" prefWidth="45.0" style="-fx-background-color: #00B2FF; -fx-font-size: 17;" text="🔄" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="updateButton" ellipsisString="" layoutX="183.0" layoutY="425.0" mnemonicParsing="false" onAction="#update" onMousePressed="#mouseBasıldı" onMouseReleased="#mouseKaldırıldı" prefHeight="31.0" prefWidth="45.0" style="-fx-background-color: #EEC200; -fx-font-size: 17;" text="✎" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="deleteButton" ellipsisString="" layoutX="248.0" layoutY="425.0" mnemonicParsing="false" onAction="#delete" onMousePressed="#mouseBasıldı" onMouseReleased="#mouseKaldırıldı" prefHeight="31.0" prefWidth="45.0" style="-fx-background-color: #FF0404; -fx-font-size: 17;" text="🗑" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                        <AnchorPane fx:id="pane" layoutX="-4.0" prefHeight="414.0" prefWidth="363.0" style="-fx-background-color: #DFCFB7;">
+                           <children>
+                              <TextField fx:id="urunAdTf" layoutX="181.0" layoutY="100.0" prefHeight="25.0" prefWidth="149.0" />
+                              <TextField fx:id="urunAdetTf" layoutX="181.0" layoutY="170.0" />
+                              <TextField fx:id="alisFiyatiTf" layoutX="181.0" layoutY="240.0" />
+                              <TextField fx:id="satisFiyatiTf" layoutX="181.0" layoutY="310.0" />
+                              <Label layoutX="51.0" layoutY="100.0" text="Ürün İsmi">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="51.0" layoutY="170.0" text="Ürün Adedi">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="51.0" layoutY="240.0" text="Alış Fiyatı">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="51.0" layoutY="310.0" text="Satış Fiyatı">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="uyariLabel" alignment="CENTER" layoutX="2.0" layoutY="366.0" prefHeight="20.0" prefWidth="361.0" textFill="#019710">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="urunNumarasıLabel" layoutX="193.0" layoutY="38.0" prefHeight="25.0" prefWidth="59.0" textFill="#0002ff" />
+                              <Label fx:id="ürünNoTextLabel" layoutX="128.0" layoutY="41.0" text="Ürün No:" textFill="#0002ff" visible="false" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Personel Kontrol">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #DFCFB7;">
+                     <children>
+                        <TableView fx:id="personellerTable" layoutX="367.0" onMouseClicked="#personelTableSelected" prefHeight="618.0" prefWidth="801.0">
+                          <columns>
+                            <TableColumn fx:id="personelIdColoumn" prefWidth="75.0" text="Personel ID" />
+                            <TableColumn fx:id="personelAdColoumn" prefWidth="205.0" text="Personel Adı" />
+                              <TableColumn fx:id="sifreColoumn" prefWidth="205.0" text="Şifre" />
+                              <TableColumn fx:id="calisanTipiColoumn" prefWidth="205.0" text="Çalışan Tipi" />
+                          </columns>
+                        </TableView>
+                        <AnchorPane fx:id="pane1" prefHeight="414.0" prefWidth="363.0" style="-fx-background-color: #DFCFB7;">
+                           <children>
+                              <TextField fx:id="personelKullaniciAdTf" layoutX="181.0" layoutY="100.0" prefHeight="25.0" prefWidth="149.0" />
+                              <TextField fx:id="sifreTf" layoutX="181.0" layoutY="170.0" />
+                              <Label layoutX="51.0" layoutY="100.0" text="Personel Adı">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="51.0" layoutY="170.0" text="Şifre">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="51.0" layoutY="240.0" text="Çalışan Tipi">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="uyariLabel1" alignment="CENTER" layoutX="2.0" layoutY="366.0" prefHeight="20.0" prefWidth="361.0" textFill="#019710">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <ChoiceBox fx:id="choiceBox" layoutX="182.0" layoutY="241.0" prefWidth="150.0" />
+                              <Label fx:id="idLabel" layoutX="183.0" layoutY="37.0" prefHeight="25.0" prefWidth="59.0" textFill="#0002ff" />
+                              <Label fx:id="idTextLabel" layoutX="118.0" layoutY="40.0" text="Ürün No:" textFill="#0002ff" visible="false" />
+                           </children>
+                        </AnchorPane>
+                        <Button fx:id="personelEkleButton" layoutX="53.0" layoutY="425.0" mnemonicParsing="false" onAction="#addPersonel" onMousePressed="#mouseBasıldı" onMouseReleased="#mouseKaldırıldı" prefHeight="31.0" prefWidth="45.0" style="-fx-background-color: #2cc220; -fx-font-size: 17;" text="➕" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="personelRefreshButton" layoutX="118.0" layoutY="425.0" mnemonicParsing="false" onAction="#refreshPersonelAll" onMousePressed="#mouseBasıldı" onMouseReleased="#mouseKaldırıldı" prefHeight="31.0" prefWidth="45.0" style="-fx-background-color: #00B2FF; -fx-font-size: 17;" text="🔄" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="updatePersonelButton" ellipsisString="" layoutX="183.0" layoutY="425.0" mnemonicParsing="false" onAction="#updatePersonel" onMousePressed="#mouseBasıldı" onMouseReleased="#mouseKaldırıldı" prefHeight="31.0" prefWidth="45.0" style="-fx-background-color: #EEC200; -fx-font-size: 17;" text="✎" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="deletePersonelButton" ellipsisString="" layoutX="248.0" layoutY="425.0" mnemonicParsing="false" onAction="#deletePersonel" onMousePressed="#mouseBasıldı" onMouseReleased="#mouseKaldırıldı" prefHeight="31.0" prefWidth="45.0" style="-fx-background-color: #FF0404; -fx-font-size: 17;" text="🗑" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab onSelectionChanged="#refresh" text="Satış İşlemi">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="618.0" prefWidth="1168.0" style="-fx-background-color: #DFCFB7;">
+                     <children>
+                        <TableView fx:id="urunlerTable1" layoutX="368.0" layoutY="-1.0" onMouseClicked="#tableSelected1" prefHeight="618.0" prefWidth="801.0">
+                           <columns>
+                              <TableColumn fx:id="urunNumarasiKolonu1" prefWidth="106.0" text="Ürün Numarası" />
+                              <TableColumn fx:id="isimKolonu1" prefWidth="200.0" text="Ürün Adı" />
+                              <TableColumn fx:id="adetKolonu1" prefWidth="120.0" text="Adet" />
+                              <TableColumn fx:id="alisFiyatiKolonu1" prefWidth="120.0" text="Alış-Fiyatı" />
+                              <TableColumn fx:id="satisFiyatikolonu1" prefWidth="120.0" text="Satış-Fiyatı" />
+                              <TableColumn fx:id="karKolonu1" prefWidth="120.0" text="Kar(%)" />
+                           </columns>
+                        </TableView>
+                        <Button fx:id="ekleButton1" layoutX="173.0" layoutY="425.0" mnemonicParsing="false" onAction="#satis" onMousePressed="#mouseBasıldı" onMouseReleased="#mouseKaldırıldı" prefHeight="31.0" prefWidth="79.0" style="-fx-background-color: #2cc220; -fx-font-size: 17;" text="Sat" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="refreshButton1" layoutX="104.0" layoutY="425.0" mnemonicParsing="false" onAction="#refreshSatisAll" onMousePressed="#mouseBasıldı" onMouseReleased="#mouseKaldırıldı" prefHeight="31.0" prefWidth="45.0" style="-fx-background-color: #00B2FF; -fx-font-size: 17;" text="🔄" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                        <AnchorPane fx:id="pane2" layoutX="-4.0" layoutY="-2.0" prefHeight="416.0" prefWidth="363.0" style="-fx-background-color: #DFCFB7;">
+                           <children>
+                              <TextField fx:id="urunAdTf1" disable="true" layoutX="182.0" layoutY="55.0" prefHeight="25.0" prefWidth="149.0" />
+                              <TextField fx:id="urunAdetTf1" disable="true" layoutX="182.0" layoutY="125.0" />
+                              <TextField fx:id="alisFiyatiTf1" disable="true" layoutX="182.0" layoutY="195.0" />
+                              <TextField fx:id="satisFiyatiTf1" disable="true" layoutX="182.0" layoutY="265.0" />
+                              <Label layoutX="52.0" layoutY="55.0" text="Ürün İsmi">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="52.0" layoutY="125.0" text="Ürün Adedi">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="52.0" layoutY="195.0" text="Alış Fiyatı">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="52.0" layoutY="265.0" text="Satış Fiyatı">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="uyariLabel2" alignment="CENTER" layoutX="2.0" layoutY="382.0" prefHeight="20.0" prefWidth="361.0" textFill="#019710">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="urunNumarasıLabel1" layoutX="197.0" layoutY="22.0" prefHeight="25.0" prefWidth="59.0" textFill="#0002ff" />
+                              <Label fx:id="ürünNoTextLabel1" layoutX="132.0" layoutY="25.0" text="Ürün No:" textFill="#0002ff" visible="false" />
+                              <TextField fx:id="satılanAdetTf" layoutX="225.0" layoutY="335.0" prefHeight="26.0" prefWidth="66.0" />
+                              <Label layoutX="52.0" layoutY="335.0" text="Kaç Adet Alınacak">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Yardım">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #DFCFB7;">
+                     <children>
+                        <Button fx:id="personelEkleButton1" disable="true" layoutX="21.0" layoutY="35.0" mnemonicParsing="false" onAction="#addPersonel" onMousePressed="#mouseBasıldı" onMouseReleased="#mouseKaldırıldı" prefHeight="31.0" prefWidth="45.0" style="-fx-background-color: #2cc220; -fx-font-size: 17;" text="➕" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="personelRefreshButton1" disable="true" layoutX="21.0" layoutY="105.0" mnemonicParsing="false" onAction="#refreshPersonel" onMousePressed="#mouseBasıldı" onMouseReleased="#mouseKaldırıldı" prefHeight="31.0" prefWidth="45.0" style="-fx-background-color: #00B2FF; -fx-font-size: 17;" text="🔄" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="updatePersonelButton1" disable="true" ellipsisString="" layoutX="21.0" layoutY="175.0" mnemonicParsing="false" onAction="#updatePersonel" onMousePressed="#mouseBasıldı" onMouseReleased="#mouseKaldırıldı" prefHeight="31.0" prefWidth="45.0" style="-fx-background-color: #EEC200; -fx-font-size: 17;" text="✎" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="deletePersonelButton1" disable="true" ellipsisString="" layoutX="21.0" layoutY="245.0" mnemonicParsing="false" onAction="#deletePersonel" onMousePressed="#mouseBasıldı" onMouseReleased="#mouseKaldırıldı" prefHeight="31.0" prefWidth="45.0" style="-fx-background-color: #FF0404; -fx-font-size: 17;" text="🗑" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                        <Text layoutX="102.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ürün veya çalışan eklemek için önce kutuları doldurun ardından ekle butonuna basın." wrappingWidth="729.9830722808838">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="102.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tabloya ekleme, düzenleme veya silme işlemi yapıldıktan sonra yapılan işlem tabloda gözükmez ise yenile tuşuna basarak tabloyu yenileyebilirsiniz." wrappingWidth="1048.9830722808838">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="102.0" layoutY="197.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tablodan ürün veya çalışan seçtikten sonra gelen bilgiler değiştirilmek istenirse değişiklik yapıldıktan sonra değiştir butonuna basılır." wrappingWidth="1055.9830722808838">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="102.0" layoutY="267.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ürün veya çalışan silmek için önce tablodan eleman seçin ardından sil butonuna basın." wrappingWidth="729.9830722808838">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                        <Button fx:id="ekleButton11" disable="true" layoutX="21.0" layoutY="315.0" mnemonicParsing="false" onAction="#satis" onMousePressed="#mouseBasıldı" onMouseReleased="#mouseKaldırıldı" prefHeight="32.0" prefWidth="55.0" style="-fx-background-color: #2cc220; -fx-font-size: 17;" text="Sat" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                        <Text layoutX="102.0" layoutY="338.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ürün satmak için önce tablodan eleman seçin, istenilen adedi girin ve ardından sat butonuna basın." wrappingWidth="796.9830722808838">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </center>
+   <top>
+      <Pane prefHeight="42.0" prefWidth="1168.0" style="-fx-background-color: #331D00;" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="mainTitleLabel" alignment="CENTER" prefHeight="42.0" prefWidth="1168.0" text="Yönetici Ekranına Hoşgeldiniz!" textFill="WHITE">
+               <font>
+                  <Font name="Times New Roman" size="21.0" />
+               </font>
+            </Label>
+            <Button fx:id="anamenuButon" layoutX="1100.0" layoutY="6.0" mnemonicParsing="false" onAction="#anamenudon" onMousePressed="#mouseBasıldı" onMouseReleased="#mouseKaldırıldı" prefHeight="30.0" prefWidth="56.0" style="-fx-background-color: red;" text="Çıkış 🚪" />
+         </children>
+      </Pane>
+   </top>
+</BorderPane>
